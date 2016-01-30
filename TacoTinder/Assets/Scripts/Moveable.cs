@@ -3,13 +3,10 @@ using System.Collections;
 
 public class Moveable : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	public Vector2 direction;
+	public float speed;
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	void FixedUpdate () {
+		GetComponent<Rigidbody2D> ().velocity = transform.TransformDirection(direction.normalized*speed);
 	}
 }

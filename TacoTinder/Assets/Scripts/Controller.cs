@@ -16,15 +16,16 @@ public class Controller : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (player == null) {
+		/*if (player == null) {
 			return;
-		}
+		}*/
 		checkXAxis ();
 		checkAButton ();
 	}
 
 	private void checkXAxis() {
-		float value = Input.GetAxis (PREFIX_JOYSTICK + id + " X axis");
+		float value = Input.GetAxisRaw (PREFIX_JOYSTICK + id + " X axis");
+		Debug.Log(PREFIX_JOYSTICK + id + " X axis: " + value);
 		if (value != 0) {
 			//player.moveAim(value);
 		}
@@ -32,6 +33,7 @@ public class Controller : MonoBehaviour {
 
 	private void checkAButton() {
 		if (Input.GetButtonDown (PREFIX_JOYSTICK + id + " A button")) {
+			Debug.Log(PREFIX_JOYSTICK + id + " A button: " + true);
 			//player.shoot(valueAButton);
 		}
 	}

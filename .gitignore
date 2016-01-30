@@ -26,3 +26,5 @@ ExportedObj/
 sysinfo.txt
 TacoTinder/Temp/
 TacoTinder/Library/
+TacoTinder/ProjectSettings/ProjectVersion.txt
+*.meta

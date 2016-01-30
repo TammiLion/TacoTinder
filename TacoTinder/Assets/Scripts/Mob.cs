@@ -28,23 +28,28 @@ public class Mob : MonoBehaviour {
 		aura.transform.localPosition = Vector3.zero;
 	}
 
-	public void getHit (Player player) {
+	public bool getHit (Player player) {
 		if (target != player) {
 
 			// Make the new player the target.
 			target = player;
 
 			// Set the aura to the current target. 
-			this.aura.setAura(player.playerID - 1);
+			this.aura.setAura (player.playerID - 1);
 
 			// Modify point value
-			if(isPossessed) {
+			if (isPossessed) {
 				points--;
 			} else {
 				points++;
 			}
-			GetComponent<Moveable>().direction = player.getPosition() - new Vector2(transform.position.x, transform.position.y);
-			GetComponent<Moveable>().speed+=0.1f;
+			GetComponent<Moveable> ().direction = player.getPosition () - new Vector2 (transform.position.x, transform.position.y);
+			GetComponent<Moveable> ().speed += 0.1f;
+			// Let the projectile know we hit a new player.
+			return true;
+		} else {
+			// Must have hit the same player.
+			return false;
 		}
 	}
 

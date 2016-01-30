@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Mob : MonoBehaviour {
 
-    public string type;
+    public string god;
     public bool isSuper;
+    public bool isPossessed;
     public Player target;
     public const float INITIAL_SPEED = 1;
 
@@ -30,7 +31,9 @@ public class Mob : MonoBehaviour {
     {
         if (isSuper) points += 10;
 
-        if (type = target.type) points ++;
+        //if (isPossessed && god = target.god) points -=3;   
+
+        //if (god = target.god) points ++;   
 
         return points;
     }

@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnManager : MonoBehaviour
 {
 
-    public GameObject mob;
+    public Mob mob;
     public Vector2[] spawnPositions;
     public float cooldownTimer;
     public float firstSpawnTime;
@@ -12,28 +12,34 @@ public class SpawnManager : MonoBehaviour
     Vector2 vectorPos;
     Vector2 dir;
 
+    string[] gods = { "Mayan", "Egyptian", "Greek", "Japanese", "African"};
 
     // Use this for initialization
     void Start()
     {
-        InvokeRepeating("SpawnWaves", firstSpawnTime, cooldownTimer); 
+        InvokeRepeating("SpawnMobs", firstSpawnTime, cooldownTimer); 
     }
 
-    void SpawnWaves()
+    void SpawnMobs()
     {
         //get a random spawn position
-        vectorPos = spawnPositions[Random.Range(0, 3)];
+        vectorPos = spawnPositions[Random.Range(0, spawnPositions.Length)];
 
-        //et direction towards the center
+        //set direction towards the center and normalize vector
         dir = Vector2.zero - vectorPos;
         dir.Normalize ();
 
         //instantiate new mob
-        Mob newMob = Instantiate(mob, vectorPos , Quaternion.Euler(dir.x,0,dir.y) ) as Mob;
-        newMob.type = "rock";
-        newMob.isSuper = true;
+        Mob newMob = Instantiate(mob, vectorPos , Quaternion.identity ) as Mob;  //rotation not working Quaternion.Euler(dir.x,0,dir.y)
 
-        //wait this many seconds until it runs again
-        
+        //make it face the center
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        newMob.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        //assign mob attributes
+        newMob.god = gods[Random.Range(0,gods.Length)];
+        newMob.isSuper = (Random.value > 0.5f);
+        newMob.isPossessed = (Random.value > 0.5f);
+
     }
 }

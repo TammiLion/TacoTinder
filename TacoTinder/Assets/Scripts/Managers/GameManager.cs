@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject onControllerAvailable() {
 		GameObject player = (GameObject) Instantiate (playerPrefab, playerPrefab.transform.position, Quaternion.identity);
 		players.Add (player);
+		player.GetComponent<Player> ().playerID = players.Count;
 		if (players.Count >= MAX_PLAYERS) {
 			gameObject.GetComponent<ControllerManager>().onAllPlayersHaveControllersAssigned();
 		}

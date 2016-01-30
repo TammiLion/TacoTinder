@@ -37,6 +37,7 @@ public class ControllerManager : MonoBehaviour {
 			return;
 		} else if (state == STATE_ASSIGNING) {
 			numControllers = Input.GetJoystickNames ().Length;
+			Debug.Log("numControllers: " + numControllers);
 			assignControllers();
 		} else if (state == STATE_SELECTING) {
 		}
@@ -47,17 +48,16 @@ public class ControllerManager : MonoBehaviour {
 		if (controller == null) {
 			return;
 		}
-		Debug.Log ("not null");
 		for(int i = 0; i<controllers.Count; i++) {
 				if(((ControllerData)controllers[i]).id == controller.id) {
 					return;
 				}
 			}
-		Debug.Log ("not existing yet");
 		controllers.Add (controller);
 		GameObject player = gameObject.GetComponent<GameManager>().onControllerAvailable ();
 		player.GetComponent<Controller> ().id = controller.id;
 		player.GetComponent<Controller> ().fireButton = controller.fireButton;
+		Debug.Log ("Player " + player.GetComponent<Player>().playerID + " has been assigned controller " + controller.id);
 	}
 
 	private ControllerData checkFireButtonPressedController() {

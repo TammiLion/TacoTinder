@@ -4,37 +4,50 @@ using System.Collections;
 public class Controller : MonoBehaviour {
 
 	//Controller 1 to 4
-	public int id = 1;
+	public int id = 1; //Default id
 	public Player player;
+	private int numControllers;
+	public string fireButton = "joystick 1 button 0";  //Default Fire button
 
-	public const string PREFIX_JOYSTICK = "Joystick "; 
-
-	public Controller(int id, Player player) {
-		this.id = id;
-		this.player = player;
-	}
-
+	/*
+	 *	We can make the checkButton functions return a boolean value for wether the Input was consumed and then stop checking buttons for that frame. 
+	 *	We can do queueing.
+	 */
+	
 	// Update is called once per frame
 	void Update () {
-		/*if (player == null) {
+		if (player == null) {
 			return;
-		}*/
-		checkXAxis ();
-		checkAButton ();
+		}
+		//checkAnyButtonPressedController (id);
+		checkFireButton ();
+		checkAxes ();
 	}
-
-	private void checkXAxis() {
-		float value = Input.GetAxisRaw (PREFIX_JOYSTICK + id + " X axis");
-		Debug.Log(PREFIX_JOYSTICK + id + " X axis: " + value);
-		if (value != 0) {
-			//player.moveAim(value);
+	
+	private void checkAxes() {
+		float x = Input.GetAxisRaw ("joystick " + id + " X axis");
+		float y = Input.GetAxisRaw ("joystick " + id + " X axis");
+		Debug.Log("joystick " + id + " X axis: " + x + " Y axis: " + y);
+		player.Move (x, y);
+	}
+	
+	private void checkFireButton() {
+		if (Input.GetButtonDown (fireButton)) {
+			player.Fire();
 		}
 	}
 
-	private void checkAButton() {
-		if (Input.GetButtonDown (PREFIX_JOYSTICK + id + " A button")) {
-			Debug.Log(PREFIX_JOYSTICK + id + " A button: " + true);
-			//player.shoot(valueAButton);
+	private bool checkButtonDown(string button) {
+		return Input.GetKeyDown (button);
+	}
+	
+	public static bool checkAnyButtonPressedController(int id) {
+			for (int i = 0; i<20; i++) {
+				if (Input.GetKeyDown ("joystick " + id + " button " + i)) {
+					Debug.Log ("joystick " + id + " button " + i);
+					return true;
+				}
 		}
+		return false;
 	}
 }

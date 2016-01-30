@@ -8,8 +8,7 @@ public class Player : MonoBehaviour {
 	public float baseRotationSpeed;
 	public God god;
 	public Weapon weapon;
-	public Vector2 direction; // Maybe this should be private?
-	public Vector2 targetDirection; // This too.
+	public Vector3 targetDirection; // This too.
 
 	// Temporary
 	public GameObject tempProjectile;
@@ -18,11 +17,11 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		weapon.projectile.GetComponent<Projectile> ().player = this;
 	}
 
 	public void Move(float horizontal, float vertical) {
-		targetDirection = new Vector2 (horizontal, vertical);
+		targetDirection = new Vector3 (horizontal, vertical, 1).normalized;
 	}
 
 	public void Fire () {
@@ -32,7 +31,7 @@ public class Player : MonoBehaviour {
 		}
 
 		// Fire the weapon.
-		this.weapon.FireWeapon (this.direction);
+		this.weapon.FireWeapon (this.transform.up * -1, this.getPosition());
 
 		// Set the cooldown.
 		this.cooldownTimeStamp = Time.time + this.baseFireCooldown * this.weapon.fireCooldownModifier;
@@ -40,9 +39,12 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float angle = Vector2.Angle (direction, targetDirection);
-		this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.up);
-//		this.transform.Rotate (targetDirection.x, angle * baseRotationSpeed * Time.deltaTime);
-		this.direction = new Vector2 (this.transform.forward.normalized.x, this.transform.forward.normalized.y);
+		float step = baseRotationSpeed * Time.deltaTime;
+		Vector3 newDirection = Vector3.RotateTowards (transform.forward, targetDirection, step, 0.0F);
+		this.transform.rotation = Quaternion.Inverse(Quaternion.LookRotation (Vector3.forward, newDirection));
+	}
+
+	public Vector2 getPosition() {
+		return new Vector2(transform.position.x, transform.position.y);
 	}
 }

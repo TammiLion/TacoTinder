@@ -19,7 +19,7 @@ public class Border : MonoBehaviour
 			Moveable mobMoveable = other.GetComponent<Moveable> ();
 			Vector2 mobDirection = mobMoveable.direction;
 			// Inverse the direction of the mob.
-			mobMoveable.direction = new Vector2 (-1 * mobDirection.x, -1 * mobDirection.y);
+			mobMoveable.direction = new Vector2 (-1 * mobDirection.x + (Random.value/2f), -1 * mobDirection.y + (Random.value/1.5f));
 		}
 	}
 	

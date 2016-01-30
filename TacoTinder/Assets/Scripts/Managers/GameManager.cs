@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	public ArrayList players;
 	public const int MAX_PLAYERS = 4;
 	public GameObject playerPrefab;
+	public Vector2[] spawnPositions;
 
 	protected GameManager() {
 		players = new ArrayList();
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public GameObject onControllerAvailable() {
-		GameObject player = (GameObject) Instantiate (playerPrefab, playerPrefab.transform.position, Quaternion.identity);
+		GameObject player = (GameObject) Instantiate (playerPrefab, spawnPositions[players.Count], Quaternion.identity);
 		players.Add (player);
 		player.GetComponent<Player> ().playerID = players.Count;
 		if (players.Count >= MAX_PLAYERS) {

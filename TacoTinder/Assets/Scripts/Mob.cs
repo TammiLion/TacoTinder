@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mob : MonoBehaviour {
+public class Mob : MonoBehaviour {	
+	public GameObject auraPrefab;
+	private Aura aura;
 
     public string god;
     public bool isSuper = false;
@@ -20,11 +22,22 @@ public class Mob : MonoBehaviour {
 		if(isPossessed) {
 			gameObject.GetComponent<SpriteRenderer>().color = Color.green;
 		}
+
+		aura = Instantiate(auraPrefab).GetComponent<Aura> ();
+		aura.gameObject.transform.SetParent (this.transform);
+		aura.transform.localPosition = Vector3.zero;
 	}
 
 	public void getHit (Player player) {
 		if (target != player) {
+
+			// Make the new player the target.
 			target = player;
+
+			// Set the aura to the current target. 
+			this.aura.setAura(player.playerID - 1);
+
+			// Modify point value
 			if(isPossessed) {
 				points--;
 			} else {

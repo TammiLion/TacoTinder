@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	public int playerID;
+	public Sprite[] arrowSprites;
 
 	public float baseFireCooldown;
 	public float baseRotationSpeed;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		weapon.projectile.GetComponent<Projectile> ().player = this;
+		this.GetComponent<SpriteRenderer> ().sprite = arrowSprites[this.playerID - 1];
 	}
 
 	public void Move(float horizontal, float vertical) {

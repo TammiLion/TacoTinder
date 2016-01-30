@@ -5,7 +5,6 @@ public class Controller : MonoBehaviour {
 
 	//Controller 1 to 4
 	public int id = 1; //Default id
-	public Player player;
 	private int numControllers;
 	public string fireButton = "joystick 1 button 0";  //Default Fire button
 
@@ -16,24 +15,24 @@ public class Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (player == null) {
-			return;
-		}
 		//checkAnyButtonPressedController (id);
 		checkFireButton ();
 		checkAxes ();
 	}
 	
 	private void checkAxes() {
-		float x = Input.GetAxisRaw ("joystick " + id + " X axis");
-		float y = Input.GetAxisRaw ("joystick " + id + " X axis");
-		Debug.Log("joystick " + id + " X axis: " + x + " Y axis: " + y);
-		player.Move (x, y);
+		float x = Input.GetAxisRaw ("joystick" + id + "Xaxis");
+		float y = Input.GetAxisRaw ("joystick " + id + " Y axis");
+		Debug.Log("joystick" + id + "Xaxis: " + x + " Y axis: " + y);
+		if (x == 0 && y == 0) {
+			return;
+		}
+		gameObject.GetComponent<Player>().Move (x, y);
 	}
 	
 	private void checkFireButton() {
-		if (Input.GetButtonDown (fireButton)) {
-			player.Fire();
+		if (Input.GetKeyDown (fireButton)) {
+			gameObject.GetComponent<Player>().Fire();
 		}
 	}
 

@@ -23,8 +23,11 @@ public class Mob : MonoBehaviour {
 	}
 
 	public void getHit (Player player) {
+		Debug.Log ("GetHit");
 		if (target != player) {
+			Debug.Log ("Target is not the same");
 			target = player;
+			GetComponent<Moveable>().direction = player.getPosition() - new Vector2(transform.position.x, transform.position.y);
 			GetComponent<Moveable>().speed+=0.1f;
 		}
 	}

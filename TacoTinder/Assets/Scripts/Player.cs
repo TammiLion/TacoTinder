@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		weapon.projectile.GetComponent<Projectile> ().player = this;
 	}
 
 	public void Move(float horizontal, float vertical) {
@@ -44,5 +44,9 @@ public class Player : MonoBehaviour {
 		this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.up);
 //		this.transform.Rotate (targetDirection.x, angle * baseRotationSpeed * Time.deltaTime);
 		this.direction = new Vector2 (this.transform.forward.normalized.x, this.transform.forward.normalized.y);
+	}
+
+	public Vector2 getPosition() {
+		return new Vector2(transform.position.x, transform.position.y);
 	}
 }

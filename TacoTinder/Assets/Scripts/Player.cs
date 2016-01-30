@@ -43,8 +43,8 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float angle = Vector2.Angle (direction, targetDirection);
-
+		this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.up);
 //		this.transform.Rotate (targetDirection.x, angle * baseRotationSpeed * Time.deltaTime);
-		this.direction = new Vector2 (this.transform.TransformDirection.x , this.transform.TransformDirection.y);
+		this.direction = new Vector2 (this.transform.forward.normalized.x, this.transform.forward.normalized.y);
 	}
 }

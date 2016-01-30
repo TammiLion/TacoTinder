@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject onControllerAvailable() {
 		GameObject player = (GameObject) Instantiate (playerPrefab, spawnPositions[players.Count], Quaternion.identity);
+		player.GetComponent<Player>().god = God.GODS[players.Count];
+		GameObject baseObject = GameObject.FindWithTag(God.GODS[players.Count]);
+		baseObject.GetComponent<Base> ().player = player.GetComponent<Player>();
 		players.Add (player);
 		player.GetComponent<Player> ().playerID = players.Count;
 		if (players.Count >= MAX_PLAYERS) {

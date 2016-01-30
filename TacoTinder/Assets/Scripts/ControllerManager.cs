@@ -37,7 +37,7 @@ public class ControllerManager : MonoBehaviour {
 			return;
 		} else if (state == STATE_ASSIGNING) {
 			numControllers = Input.GetJoystickNames ().Length;
-			Debug.Log("numControllers: " + numControllers);
+			//Debug.Log("numControllers: " + numControllers);
 			assignControllers();
 		} else if (state == STATE_SELECTING) {
 		}

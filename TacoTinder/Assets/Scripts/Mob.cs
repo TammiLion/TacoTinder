@@ -39,7 +39,7 @@ public class Mob : MonoBehaviour {
     {
 		if (isSuper) {
 			if(isPossessed) {
-				if(god == target.god.godName) {
+				if(god == target.god) {
 					return points - 3;
 				} else {
 					return points - 10;
@@ -48,6 +48,13 @@ public class Mob : MonoBehaviour {
 			return points + 10;
 		}
 
+		if (isPossessed) {
+			if(god == target.god) {
+				return points;
+			} else {
+				return points -3;
+			}
+		}
         return points;
     }
 

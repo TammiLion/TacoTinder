@@ -4,7 +4,7 @@ using System.Collections;
 public class God : MonoBehaviour
 {
 	public string godName;
-	public static string[] GODS = { "inca", "pyramid", "japan", "aquaman"};
+	public static string[] GODS = { "aquaman", "pyramid", "inca", "japan"};
 
 	// Use this for initialization
 	void Start ()

@@ -8,8 +8,7 @@ public class Player : MonoBehaviour {
 	public float baseRotationSpeed;
 	public God god;
 	public Weapon weapon;
-	public Vector2 direction; // Maybe this should be private?
-	public Vector2 targetDirection; // This too.
+	public Vector3 targetDirection; // This too.
 
 	// Temporary
 	public GameObject tempProjectile;
@@ -32,7 +31,7 @@ public class Player : MonoBehaviour {
 		}
 
 		// Fire the weapon.
-		this.weapon.FireWeapon (this.direction);
+		this.weapon.FireWeapon (this.transform.up * -1, this.getPosition());
 
 		// Set the cooldown.
 		this.cooldownTimeStamp = Time.time + this.baseFireCooldown * this.weapon.fireCooldownModifier;

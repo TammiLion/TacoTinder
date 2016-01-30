@@ -37,7 +37,7 @@ public class SpawnManager : MonoBehaviour
 		//newMob.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         //assign mob attributes
-		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
+		newMob.god = God.GODS[Random.Range(0, God.GODS.Length-1)];
         newMob.isSuper = (Random.value < 0.3f);
         newMob.isPossessed = (Random.value < 0.1f);
     }

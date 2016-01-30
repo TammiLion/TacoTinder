@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
 	public float baseFireCooldown;
 	public float baseRotationSpeed;
-	public God god;
+	public string god;
 	public Weapon weapon;
 	public Vector3 targetDirection; // This too.
 

@@ -15,7 +15,9 @@ public class Mob : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		if (target == null) {
+			GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);
+		}
 	}
 
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Base : MonoBehaviour
 {
-
+	public Sprite[] baseImages;
     int points = 0;
     Vector2 position;
 

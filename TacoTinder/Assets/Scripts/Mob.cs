@@ -4,33 +4,32 @@ using System.Collections;
 public class Mob : MonoBehaviour {
 
     public string god;
-    public bool isSuper;
-    public bool isPossessed;
+    public bool isSuper = false;
+    public bool isPossessed = false;
     public Player target;
-    public const float INITIAL_SPEED = 1;
-
-    int points;
-
-    float speed = INITIAL_SPEED;
-
+    int points = 1;
+	
 	// Use this for initialization
 	void Start () {
 		if (target == null) {
 			GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);
 		}
+		if (isSuper) {
+			gameObject.transform.localScale+= new Vector3(0.3f, 0.3f, 0.3f);
+		}
+		if(isPossessed) {
+			gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+		}
 	}
-
 
 	public void getHit (Player player) {
-		Debug.Log ("Arrow from" + player + "hit me!");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    //update the speed of the mob
+		if (target != player) {
+			target = player;
+			GetComponent<Moveable>().speed+=0.1f;
+		}
 	}
 
-    public int GetPoints()
+    public int GetPoints(Player player)
     {
         if (isSuper) points += 10;
 

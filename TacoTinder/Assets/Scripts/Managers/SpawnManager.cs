@@ -12,7 +12,6 @@ public class SpawnManager : MonoBehaviour
     Vector2 vectorPos;
     Vector2 dir;
 
-    public  string[] GODS = { "inca", "pyramid", "japan", "aquaman"};
 
     // Use this for initialization
     void Start()
@@ -38,9 +37,8 @@ public class SpawnManager : MonoBehaviour
 		//newMob.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         //assign mob attributes
-		newMob.god = GODS[Random.Range(0,GODS.Length)];
-        newMob.isSuper = (Random.value > 0.5f);
-        newMob.isPossessed = (Random.value > 0.5f);
-
+		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
+        newMob.isSuper = (Random.value < 0.3f);
+        newMob.isPossessed = (Random.value < 0.1f);
     }
 }

@@ -3,31 +3,17 @@ using System.Collections;
 
 public class Base : MonoBehaviour
 {
+	public Player player;
 	public Sprite[] baseImages;
     int points = 0;
     Vector2 position;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    
-    }
-
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "mob")
+        if (coll.gameObject.tag == "Mob")
         {
-
-            points += coll.GetComponent<Mob>().GetPoints();
+            points += coll.GetComponent<Mob>().GetPoints(player);
             Destroy(coll.gameObject);
-
         }
     }
 }

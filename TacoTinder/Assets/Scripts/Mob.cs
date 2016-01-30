@@ -7,6 +7,11 @@ public class Mob : MonoBehaviour {
 	void Start () {
 	
 	}
+
+
+	public void getHit (Player player) {
+		Debug.Log ("Arrow from", player, "hit me!");
+	}
 	
 	// Update is called once per frame
 	void Update () {

@@ -11,7 +11,8 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Mob") {
-			// DO STUFF.
+			other.GetComponent<Mob> ().getHit (this.player);
+			Destroy (this.gameObject);
 		}
 	}
 	

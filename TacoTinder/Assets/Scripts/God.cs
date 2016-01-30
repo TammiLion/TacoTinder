@@ -3,7 +3,7 @@ using System.Collections;
 
 public class God : MonoBehaviour
 {
-	public string name;
+	public string godName;
 
 	// Use this for initialization
 	void Start ()

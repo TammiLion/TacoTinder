@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mob : MonoBehaviour {
+public class Mob : MonoBehaviour {	
+	public GameObject auraPrefab;
+	private Aura aura;
 
     public string god;
     public bool isSuper = false;
@@ -20,18 +22,34 @@ public class Mob : MonoBehaviour {
 		if(isPossessed) {
 			gameObject.GetComponent<SpriteRenderer>().color = Color.green;
 		}
+
+		aura = Instantiate(auraPrefab).GetComponent<Aura> ();
+		aura.gameObject.transform.SetParent (this.transform);
+		aura.transform.localPosition = Vector3.zero;
 	}
 
-	public void getHit (Player player) {
+	public bool getHit (Player player) {
 		if (target != player) {
+
+			// Make the new player the target.
 			target = player;
-			if(isPossessed) {
+
+			// Set the aura to the current target. 
+			this.aura.setAura (player.playerID - 1);
+
+			// Modify point value
+			if (isPossessed) {
 				points--;
 			} else {
 				points++;
 			}
-			GetComponent<Moveable>().direction = player.getPosition() - new Vector2(transform.position.x, transform.position.y);
-			GetComponent<Moveable>().speed+=0.1f;
+			GetComponent<Moveable> ().direction = player.getPosition () - new Vector2 (transform.position.x, transform.position.y);
+			GetComponent<Moveable> ().speed += 0.1f;
+			// Let the projectile know we hit a new player.
+			return true;
+		} else {
+			// Must have hit the same player.
+			return false;
 		}
 	}
 
@@ -57,6 +75,10 @@ public class Mob : MonoBehaviour {
 		}
         return points;
     }
+
+	public void setSpooked(bool isSpooked) {
+		//gameObject.GetComponent
+	}
 
 	public void moveToPlayer() {
 		GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);

@@ -10,10 +10,11 @@ public class Base : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "Mob")
-        {
-            points += coll.GetComponent<Mob>().GetPoints(player);
-            Destroy(coll.gameObject);
-        }
+        if (coll.tag == "Mob") {
+			//points += coll.GetComponent<Mob> ().GetPoints (player);
+			Destroy (coll.gameObject);
+		} else if (coll.tag == "Projectile") {
+			Destroy(coll);
+		}
     }
 }

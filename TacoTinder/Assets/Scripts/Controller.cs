@@ -23,7 +23,7 @@ public class Controller : MonoBehaviour {
 	private void checkAxes() {
 		float x = Input.GetAxisRaw ("joystick " + id + " X axis");
 		float y = Input.GetAxisRaw ("joystick " + id + " Y axis");
-		Debug.Log("joystick" + id + "Xaxis: " + x + " Y axis: " + y);
+//		Debug.Log("joystick" + id + "Xaxis: " + x + " Y axis: " + y);
 		if (x == 0 && y == 0) {
 			return;
 		}
@@ -43,7 +43,7 @@ public class Controller : MonoBehaviour {
 	public static bool checkAnyButtonPressedController(int id) {
 			for (int i = 0; i<20; i++) {
 				if (Input.GetKeyDown ("joystick " + id + " button " + i)) {
-					Debug.Log ("joystick " + id + " button " + i);
+//					Debug.Log ("joystick " + id + " button " + i);
 					return true;
 				}
 		}

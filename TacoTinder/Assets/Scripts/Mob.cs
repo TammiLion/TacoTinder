@@ -10,6 +10,7 @@ public class Mob : MonoBehaviour {
     public const float INITIAL_SPEED = 1;
 
     int points;
+
     float speed = INITIAL_SPEED;
 
 	// Use this for initialization
@@ -27,11 +28,11 @@ public class Mob : MonoBehaviour {
 	    //update the speed of the mob
 	}
 
-    int GetPoints()
+    public int GetPoints()
     {
         if (isSuper) points += 10;
 
-        //if (isPossessed && god = target.god) points -=3;   
+        //if (isPossessed && god != target.god) points -=3;   
 
         //if (god = target.god) points ++;   
 

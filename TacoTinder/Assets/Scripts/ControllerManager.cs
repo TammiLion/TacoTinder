@@ -64,7 +64,7 @@ public class ControllerManager : MonoBehaviour {
 		for (int i = 0; i<20; i++) {
 			for (int j = 1; j<numControllers+1; j++) {
 				if (Input.GetKeyDown ("joystick " + j + " button " + i)) {
-					Debug.Log ("joystick " + j + " button " + i);
+//					Debug.Log ("joystick " + j + " button " + i);
 					return new ControllerData(j, "joystick " + j + " button " + i);
 				}
 			}

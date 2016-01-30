@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
+	public int playerID;
+
 	public float baseFireCooldown;
 	public float baseRotationSpeed;
 	public God god;
@@ -41,7 +43,8 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float angle = Vector2.Angle (direction, targetDirection);
-		this.transform.Rotate (targetDirection.x, angle * baseRotationSpeed * Time.deltaTime);
-		this.direction = new Vector2 (this.transform.TransformDirection.x, this.transform.TransformDirection.y);
+
+//		this.transform.Rotate (targetDirection.x, angle * baseRotationSpeed * Time.deltaTime);
+		this.direction = new Vector2 (this.transform.TransformDirection.x , this.transform.TransformDirection.y);
 	}
 }

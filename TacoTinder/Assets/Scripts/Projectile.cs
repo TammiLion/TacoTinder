@@ -11,7 +11,6 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Mob") {
-			Debug.Log ("Hit a mob");
 			other.GetComponent<Mob> ().getHit (player);
 			Destroy (this.gameObject);
 		}

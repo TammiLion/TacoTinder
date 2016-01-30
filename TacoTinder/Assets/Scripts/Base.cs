@@ -13,8 +13,6 @@ public class Base : MonoBehaviour
         if (coll.tag == "Mob") {
 			//points += coll.GetComponent<Mob> ().GetPoints (player);
 			Destroy (coll.gameObject);
-		} else if (coll.tag == "Projectile") {
-			Destroy(coll);
 		}
     }
 }

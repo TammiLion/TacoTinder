@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
 		}
 
 		// Fire the weapon.
-		this.weapon.FireWeapon (this.transform.up * -1, this.getPosition());
+		this.weapon.FireWeapon (this.transform.up * -1, this.getPosition(), this);
 
 		// Set the cooldown.
 		this.cooldownTimeStamp = Time.time + this.baseFireCooldown * this.weapon.fireCooldownModifier;

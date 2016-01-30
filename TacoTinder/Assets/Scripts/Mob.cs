@@ -12,7 +12,7 @@ public class Mob : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (target == null) {
-			GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);
+			moveToPlayer();
 		}
 		if (isSuper) {
 			gameObject.transform.localScale+= new Vector3(0.3f, 0.3f, 0.3f);
@@ -23,10 +23,13 @@ public class Mob : MonoBehaviour {
 	}
 
 	public void getHit (Player player) {
-		Debug.Log ("GetHit");
 		if (target != player) {
-			Debug.Log ("Target is not the same");
 			target = player;
+			if(isPossessed) {
+				points--;
+			} else {
+				points++;
+			}
 			GetComponent<Moveable>().direction = player.getPosition() - new Vector2(transform.position.x, transform.position.y);
 			GetComponent<Moveable>().speed+=0.1f;
 		}
@@ -34,12 +37,21 @@ public class Mob : MonoBehaviour {
 
     public int GetPoints(Player player)
     {
-        if (isSuper) points += 10;
-
-        //if (isPossessed && god != target.god) points -=3;   
-
-        //if (god = target.god) points ++;   
+		if (isSuper) {
+			if(isPossessed) {
+				if(god == target.god.godName) {
+					return points - 3;
+				} else {
+					return points - 10;
+				}
+			}
+			return points + 10;
+		}
 
         return points;
     }
+
+	public void moveToPlayer() {
+		GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);
+	}
 }

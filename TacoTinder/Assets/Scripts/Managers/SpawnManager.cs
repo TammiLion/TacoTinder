@@ -12,12 +12,13 @@ public class SpawnManager : MonoBehaviour
     Vector2 vectorPos;
     Vector2 dir;
 
-
-    // Use this for initialization
-    void Start()
-    {
-        InvokeRepeating("SpawnMobs", firstSpawnTime, cooldownTimer); 
-    }
+	public void startSpawning() {
+		InvokeRepeating("SpawnMobs", firstSpawnTime, cooldownTimer); 
+	}
+	
+	public void stopSpawning() {
+		CancelInvoke ();
+	}
 
     void SpawnMobs()
     {

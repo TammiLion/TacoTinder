@@ -58,6 +58,10 @@ public class Mob : MonoBehaviour {
         return points;
     }
 
+	public void setSpooked(bool isSpooked) {
+		//gameObject.GetComponent
+	}
+
 	public void moveToPlayer() {
 		GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);
 	}

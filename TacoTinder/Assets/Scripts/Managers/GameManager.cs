@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 	void Start() {
 		ControllerManager controllerManager = gameObject.AddComponent<ControllerManager>();
 		controllerManager.onCharacterSelectionScreen ();
+		GetComponent<RoundManager> ().start = true;
+		GetComponent<SpawnManager> ().startSpawning ();
 	}
 
 	public GameObject onControllerAvailable() {
@@ -42,6 +44,33 @@ public class GameManager : MonoBehaviour {
 			gameObject.GetComponent<ControllerManager>().onAllPlayersHaveControllersAssigned();
 		}
 		return player;
+	}
+
+	public void onRoundTimePassed() {
+		reset ();
+		showObjective ();
+	}
+
+	private void reset() {
+		GetComponent<SpawnManager> ().stopSpawning ();
+		foreach (GameObject mob in GameObject.FindGameObjectsWithTag("Mob")) {
+			Destroy(mob);
+		}
+		foreach (string god in God.GODS) {
+			GameObject baseObject = GameObject.FindGameObjectWithTag(god);
+			baseObject.GetComponent<Base>().points = 0;
+		}
+	}
+
+	//After the tutorial round has passed
+	private void showObjective() {
+		GetComponent<RoundManager> ().time = 5;
+		GetComponent<RoundManager> ().start = true;
+		Invoke ("startVersus", 5f);
+	}
+
+	private void startVersus() {
+		GetComponent<SpawnManager> ().startSpawning ();
 	}
 	
 }

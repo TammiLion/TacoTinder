@@ -21,7 +21,7 @@ public class Controller : MonoBehaviour {
 	}
 	
 	private void checkAxes() {
-		float x = Input.GetAxisRaw ("joystick" + id + "Xaxis");
+		float x = Input.GetAxisRaw ("joystick " + id + " X axis");
 		float y = Input.GetAxisRaw ("joystick " + id + " Y axis");
 		Debug.Log("joystick" + id + "Xaxis: " + x + " Y axis: " + y);
 		if (x == 0 && y == 0) {

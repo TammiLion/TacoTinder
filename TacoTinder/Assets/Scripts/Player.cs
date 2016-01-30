@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
 	public float baseFireCooldown;
 	public float baseRotationSpeed;
 	public God god;
-//	public Weapon weapon;
+	public Weapon weapon;
 	public Vector2 direction; // Maybe this should be private?
 	public Vector2 targetDirection; // This too.
 
@@ -32,12 +32,10 @@ public class Player : MonoBehaviour {
 		}
 
 		// Fire the weapon.
-		// TODO
-		Moveable arrowMoveable = Instantiate(tempProjectile).GetComponent<Moveable> ();
-		arrowMoveable.direction = this.direction;
+		this.weapon.FireWeapon (this.direction);
 
 		// Set the cooldown.
-		this.cooldownTimeStamp = Time.time + this.baseFireCooldown;
+		this.cooldownTimeStamp = Time.time + this.baseFireCooldown * this.weapon.fireCooldownModifier;
 	}
 	
 	// Update is called once per frame

@@ -2,11 +2,15 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public float baseCooldown;
-	public float baseSpeed;
+	public float baseFireCooldown;
+	public float baseRotationSpeed;
 	public God god;
-	public Vector2 direction; // Maybe this should be private?
 //	public Weapon weapon;
+	public Vector2 direction; // Maybe this should be private?
+	public Vector2 targetDirection; // This too.
+
+	// Temporary
+	public GameObject tempProjectile;
 
 	private float cooldownTimeStamp;
 
@@ -16,8 +20,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Move(float horizontal, float vertical) {
-		Vector2 moveDirection = new Vector2 (horizontal, vertical);
-
+		targetDirection = new Vector2 (horizontal, vertical);
 	}
 
 	public void Fire () {
@@ -28,13 +31,17 @@ public class Player : MonoBehaviour {
 
 		// Fire the weapon.
 		// TODO
+		Moveable arrowMoveable = Instantiate(tempProjectile).GetComponent<Moveable> ();
+		arrowMoveable.direction = this.direction;
 
 		// Set the cooldown.
-		this.cooldownTimeStamp = Time.time + this.baseCooldown;
+		this.cooldownTimeStamp = Time.time + this.baseFireCooldown;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		float angle = Vector2.Angle (direction, targetDirection);
+		this.transform.Rotate (targetDirection.x, angle * baseRotationSpeed * Time.deltaTime);
+		this.direction = new Vector2 (this.transform.TransformDirection.x, this.transform.TransformDirection.y);
 	}
 }

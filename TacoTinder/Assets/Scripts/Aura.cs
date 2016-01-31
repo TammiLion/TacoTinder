@@ -4,6 +4,7 @@ using System.Collections;
 public class Aura : MonoBehaviour
 {
 	public Sprite[] auraSprites;
+	public float rotationSpeed = 1.0F;
 
 	// Use this for initialization
 	void Start ()
@@ -18,7 +19,7 @@ public class Aura : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		transform.Rotate(0, 0, rotationSpeed);
 	}
 }
 

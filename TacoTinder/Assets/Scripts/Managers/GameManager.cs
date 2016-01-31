@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
+		Debug.Log ("Start GameManager");
 		ControllerManager controllerManager = gameObject.AddComponent<ControllerManager>();
 		controllerManager.onCharacterSelectionScreen ();
 		GetComponent<RoundManager> ().start = true;
@@ -67,6 +68,9 @@ public class GameManager : MonoBehaviour {
 			Destroy(mob);
 		}
 		foreach (string god in God.GODS) {
+			if(god == God.GODS[4]) {
+				break;
+			}
 			GameObject baseObject = GameObject.FindGameObjectWithTag(god);
 			baseObject.GetComponent<Base>().points = 0;
 			baseObject.GetComponent<Base>().setPoints();

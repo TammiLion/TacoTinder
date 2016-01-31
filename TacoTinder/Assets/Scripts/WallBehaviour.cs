@@ -3,11 +3,11 @@ using System.Collections;
 
 public class WallBehaviour : MonoBehaviour
 {
-
+    public float timeToDestroy;
     // Use this for initialization
     void Start()
     {
-
+        Destroy(this.gameObject, timeToDestroy);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -21,6 +21,4 @@ public class WallBehaviour : MonoBehaviour
             mobMoveable.direction = new Vector2(-1 * mobDirection.x + (Random.value / 2f), -1 * mobDirection.y + (Random.value / 1.5f));
         }
     }
-
-
 }

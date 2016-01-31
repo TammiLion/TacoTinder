@@ -5,11 +5,11 @@ public class SpawnManager : MonoBehaviour
 {
 
     public Mob mob;
-    public Vector2[] spawnPositions;
+    public GameObject[] spawnPositions;
     public float cooldownTimer;
     public float firstSpawnTime;
  
-    Vector2 vectorPos;
+    Vector3 spawnLocation;
     Vector2 dir;
 
 	public void startSpawning() {
@@ -23,14 +23,14 @@ public class SpawnManager : MonoBehaviour
     void SpawnMobs()
     {
         //get a random spawn position
-        vectorPos = spawnPositions[Random.Range(0, spawnPositions.Length)];
+		spawnLocation = spawnPositions[Random.Range(0, spawnPositions.Length)].transform.position;
 
         //set direction towards the center and normalize vector
-        dir = Vector2.zero - vectorPos;
+		dir = Vector3.zero - spawnLocation;
         dir.Normalize ();
 
         //instantiate new mob
-        Mob newMob = Instantiate(mob, vectorPos , Quaternion.identity ) as Mob;  //rotation not working Quaternion.Euler(dir.x,0,dir.y)
+		Mob newMob = Instantiate(mob, spawnLocation , Quaternion.identity ) as Mob;  //rotation not working Quaternion.Euler(dir.x,0,dir.y)
 
         //make it face the center
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -41,6 +41,6 @@ public class SpawnManager : MonoBehaviour
 		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
         newMob.isSuper = (Random.value < 0.3f);
         newMob.isPossessed = (Random.value < 0.2f);
-		newMob.isFattyMcFatFuck = (Random.value<0.1f);
+		newMob.isFattyMcFatFuck = (Random.value<0.05f);
     }
 }

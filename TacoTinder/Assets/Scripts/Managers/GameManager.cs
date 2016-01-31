@@ -36,10 +36,6 @@ public class GameManager : MonoBehaviour {
 		return mManager;
 	}
 
-	void Awake() {
-		DontDestroyOnLoad (this);
-	}
-
 	void Start() {
 		ControllerManager controllerManager = gameObject.AddComponent<ControllerManager>();
 		controllerManager.onCharacterSelectionScreen ();
@@ -115,13 +111,13 @@ public class GameManager : MonoBehaviour {
 
 	public void onWinConditionSucces(Base baseclass) {
 		GetComponent<SpawnManager>().stopSpawning();
-		reset ();
 		GetComponent<ShowWinner> ().showWinScreen (baseclass.player);
 		Invoke ("restartGame", 10f);
 	}
 
 	private void restartGame() {
-		Application.LoadLevel (Application.loadedLevel);
+		reset ();
+		Application.LoadLevel (0);
 	}
 
 	//After the tutorial round has passed

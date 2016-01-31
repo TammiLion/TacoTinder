@@ -16,11 +16,24 @@ public class Base : MonoBehaviour
 			handler(this, System.EventArgs.Empty);
 		}
 	}
+
+	public event EventHandler onBadEnterBase;
+	
+	public void onBadEnterBaseEvent() {
+		EventHandler handler = onBadEnterBase;
+		if (handler != null) {
+			handler(this, System.EventArgs.Empty);
+		}
+	}
 	
     void OnTriggerEnter2D(Collider2D coll)
     {
 		if (coll.tag == "Mob") {
-			onEnterBaseEvent();
+			if(coll.GetComponent<Mob>().isPossessed) {
+				onBadEnterBaseEvent();
+			} else {
+				onEnterBaseEvent();
+			}
 			points += coll.GetComponent<Mob> ().GetPoints (player);
 			setPoints();
 			Destroy (coll.gameObject);

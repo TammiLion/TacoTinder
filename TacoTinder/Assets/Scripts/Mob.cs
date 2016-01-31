@@ -5,6 +5,7 @@ public class Mob : MonoBehaviour {
 	public GameObject auraPrefab;
 	private Aura aura;
 	public Sprite fatty;
+	public Sprite[] affiliations;
 
     public string god;
 	public bool isFattyMcFatFuck = false;

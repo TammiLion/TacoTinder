@@ -16,6 +16,8 @@ public class Mob : MonoBehaviour {
     public Player target;
     int points = 1;
 
+	private Vector2 previousDirection;
+
 	// Use this for initialization
 	void Start () {
 		if (target == null) {
@@ -134,8 +136,14 @@ public class Mob : MonoBehaviour {
 		}
     }
 
-	public void setSpooked(bool isSpooked) {
-		//gameObject.GetComponent
+	public void fear()
+	{
+		previousDirection = GetComponent<Moveable> ().direction;
+		GetComponent<Moveable>().direction = new Vector2(Random.Range(-180, 180) , Random.Range(-180, 180) );
+	}
+
+	public void cancelFear () {
+		GetComponent<Moveable> ().direction = previousDirection;
 	}
 
 	public void moveToPlayer() {

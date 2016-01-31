@@ -40,6 +40,7 @@ public class SpawnManager : MonoBehaviour
         //assign mob attributes
 		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
         newMob.isSuper = (Random.value < 0.3f);
-        newMob.isPossessed = (Random.value < 0.1f);
+        newMob.isPossessed = (Random.value < 0.2f);
+		newMob.isFattyMcFatFuck = (Random.value<0.1f);
     }
 }

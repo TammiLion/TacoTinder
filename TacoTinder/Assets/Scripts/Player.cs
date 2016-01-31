@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 	public int playerID;
@@ -11,15 +12,15 @@ public class Player : MonoBehaviour {
 	public Weapon weapon;
 	public Vector3 targetDirection; // This too.
 
-	// Temporary
-	public GameObject tempProjectile;
-
 	private float cooldownTimeStamp;
+	private SpriteRenderer arrowSprite;
 
 	// Use this for initialization
 	void Start () {
 		weapon.projectile.GetComponent<Projectile> ().player = this;
-		this.GetComponent<SpriteRenderer> ().sprite = arrowSprites[this.playerID - 1];
+		// Set the sprite for this playerID.
+		this.arrowSprite = this.GetComponent<SpriteRenderer> ();
+		this.arrowSprite.sprite = arrowSprites[this.playerID - 1];
 	}
 
 	public void Move(float horizontal, float vertical) {
@@ -44,6 +45,15 @@ public class Player : MonoBehaviour {
 		float step = baseRotationSpeed * Time.deltaTime;
 		Vector3 newDirection = Vector3.RotateTowards (transform.forward, targetDirection, step, 0.0F);
 		this.transform.rotation = Quaternion.Inverse(Quaternion.LookRotation (Vector3.forward, newDirection));
+
+		// Update the cooldown timer (alpha of the sprite)
+		if (this.cooldownTimeStamp >= Time.time) {
+			float timeLeft = this.cooldownTimeStamp - Time.time;
+			float percentage = timeLeft / (this.baseFireCooldown * this.weapon.fireCooldownModifier);
+			this.arrowSprite.color = new Color(1f,1f,1f,1 - percentage);
+			Debug.Log (percentage);
+		}
+
 	}
 
 	public Vector2 getPosition() {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 
 public class OpeningScene : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class OpeningScene : MonoBehaviour
         if (Input.anyKeyDown)
         {
             Debug.Log("KeyCode pressed");
-            SceneManager.LoadScene("Sponsors");
+            //SceneManager.LoadScene("Sponsors");
         }
     }
 }

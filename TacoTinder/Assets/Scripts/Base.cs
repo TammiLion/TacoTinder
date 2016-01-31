@@ -22,4 +22,8 @@ public class Base : MonoBehaviour
 	public void setPoints() {
 		scoreText.text = "Score: " + points;
 	}
+
+	public Vector2 getPosition() {
+		return new Vector2(transform.position.x, transform.position.y);
+	}
 }

@@ -6,8 +6,13 @@ public class SpawnManager : MonoBehaviour
 
     public Mob mob;
     public GameObject[] spawnPositions;
+	public GameObject fattySpawnPosition;
     public float cooldownTimer;
     public float firstSpawnTime;
+
+	public float fattyRate = 0.01f;
+	public float superRate = 0.3f;
+	public float possedRate = 0.2f;
  
     Vector3 spawnLocation;
     Vector2 dir;
@@ -27,8 +32,14 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnMobs()
     {
-        //get a random spawn position
-		spawnLocation = spawnPositions[Random.Range(0, spawnPositions.Length)].transform.position;
+		bool spawnFatty = (!isTimedRound && (fattiesSpawned < maxFatties) && Random.value < fattyRate);
+
+		if (spawnFatty) {
+			spawnLocation = fattySpawnPosition.transform.position;
+		} else {
+			//get a random spawn position
+			spawnLocation = spawnPositions [Random.Range (0, spawnPositions.Length)].transform.position;
+		}
 
         //set direction towards the center and normalize vector
 		dir = Vector3.zero - spawnLocation;
@@ -44,9 +55,9 @@ public class SpawnManager : MonoBehaviour
 
         //assign mob attributes
 		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
-        newMob.isSuper = (Random.value < 0.3f);
-        newMob.isPossessed = (Random.value < 0.2f);
-		if (!isTimedRound && (fattiesSpawned < maxFatties) && Random.value < 0.01f) {
+		newMob.isSuper = (Random.value < superRate);
+        newMob.isPossessed = (Random.value < possedRate);
+		if (spawnFatty) {
 			newMob.isFattyMcFatFuck = true;
 			fattiesSpawned += 1;
 		}

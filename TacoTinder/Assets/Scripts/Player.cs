@@ -9,11 +9,14 @@ public class Player : MonoBehaviour {
 	public float baseFireCooldown;
 	public float baseRotationSpeed;
 	public string god;
+	public God godClass;
 	public Weapon weapon;
 	public Vector3 targetDirection; // This too.
 
 	private float cooldownTimeStamp;
 	private SpriteRenderer arrowSprite;
+
+	private Base homeBase;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +24,7 @@ public class Player : MonoBehaviour {
 		// Set the sprite for this playerID.
 		this.arrowSprite = this.GetComponent<SpriteRenderer> ();
 		this.arrowSprite.sprite = arrowSprites[this.playerID - 1];
+		homeBase = GameObject.FindGameObjectWithTag(this.god).GetComponent<Base> ();
 	}
 
 	public void Move(float horizontal, float vertical) {
@@ -38,6 +42,10 @@ public class Player : MonoBehaviour {
 
 		// Set the cooldown.
 		this.cooldownTimeStamp = Time.time + this.baseFireCooldown * this.weapon.fireCooldownModifier;
+	}
+
+	public void activateSuper () {
+		this.godClass.activateSuper (this.god, homeBase);
 	}
 	
 	// Update is called once per frame

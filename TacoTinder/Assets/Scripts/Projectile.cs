@@ -2,11 +2,17 @@
 using System.Collections;
 
 public class Projectile : MonoBehaviour {
-
+	
+	public Sprite[] projectileSprites;
 	public Player player;
 	// Use this for initialization
 	void Start () {
 
+	}
+
+	public void setPlayer (Player player) {
+		this.player = player;
+		this.GetComponent<SpriteRenderer> ().sprite = projectileSprites [player.playerID - 1];
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {

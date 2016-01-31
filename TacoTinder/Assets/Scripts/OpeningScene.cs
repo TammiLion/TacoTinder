@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 
-public class OpeningScene : MonoBehaviour {
-
-
-    public int waitTime;
-
-    // Use this for initialization
-    void Start()
+public class OpeningScene : MonoBehaviour
+{
+    void Update()
     {
-        if (Input.anyKey)
-            SceneManager.LoadScene("Sponsors");
+        if (Input.anyKeyDown)
+        {
+            Debug.Log("KeyCode pressed");
+            //SceneManager.LoadScene("Sponsors");
+        }
     }
-
 }

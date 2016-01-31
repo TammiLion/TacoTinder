@@ -50,7 +50,7 @@ public class RoundManager : MonoBehaviour {
 	}
 
 	private void checkTimePassed() {
-		if (time < 1) {
+		if (time < 1 && secondSoundActivated == true) {
 			secondSoundActivated = false;
 			CancelInvoke();
 			onTimerEndedSoundEvent();

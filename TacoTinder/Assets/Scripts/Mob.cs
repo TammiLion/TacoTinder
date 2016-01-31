@@ -5,14 +5,18 @@ public class Mob : MonoBehaviour {
 	public GameObject auraPrefab;
 	private Aura aura;
 	public Sprite fatty;
+	public Sprite possessedFatty;
+	public Sprite possessed;
 	public Sprite[] affiliations;
 
-    public string god;
+    public string god = "neutral";
 	public bool isFattyMcFatFuck = false;
     public bool isSuper = false;
     public bool isPossessed = false;
     public Player target;
     int points = 1;
+
+	private Vector2 previousDirection;
 
 	// Use this for initialization
 	void Start () {
@@ -23,17 +27,34 @@ public class Mob : MonoBehaviour {
 		aura = Instantiate(auraPrefab).GetComponent<Aura> ();
 		aura.gameObject.transform.SetParent (this.transform);
 		aura.transform.localPosition = Vector3.zero;
+
+		setMobSizeAndSprite ();
+	}
+
+	private void setMobSizeAndSprite() {
+		for (int i = 0; i<God.GODS.Length; i++) {
+			if(God.GODS[i] == god) {
+				GetComponent<SpriteRenderer>().sprite = affiliations[i];
+			}
+		}
 		if (isFattyMcFatFuck) {
-			GetComponent<SpriteRenderer>().sprite = fatty;
+			if(isPossessed) {
+				GetComponent<SpriteRenderer>().sprite = possessedFatty;
+			} else {
+				GetComponent<SpriteRenderer>().sprite = fatty;
+			}
 			gameObject.transform.localScale= new Vector3(1f, 1f, 1f);
 			GetComponent<Moveable>().speed = 0.1f;
-			GetComponent<Animator>().speed = 0.5f;
+			if (isSuper) {
+				gameObject.transform.localScale+= new Vector3(0.3f, 0.3f, 0.3f);
+			}
+			return;
 		}
 		if (isSuper) {
 			gameObject.transform.localScale+= new Vector3(0.3f, 0.3f, 0.3f);
 		}
 		if(isPossessed) {
-			gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+			GetComponent<SpriteRenderer>().sprite = possessed;
 		}
 	}
 
@@ -79,9 +100,17 @@ public class Mob : MonoBehaviour {
 					return points - 20;
 				}
 			} else if(isSuper) {
-				return points+30;
+				if(player.god == god) {
+					return points + 30;
+				} else {
+					return points + 20;
+				}
 			} else {
-				return points+20;
+				if(player.god == god) {
+					return points + 20;
+				} else {
+					return points + 15;
+				}
 			}
 		}
 
@@ -89,17 +118,32 @@ public class Mob : MonoBehaviour {
 			if(isPossessed) {
 					return points - 10;
 			}
-			return points + 10;
+			if(player.god == god) {
+				return points + 10;
+			} else {
+				return points + 5;
+			}
 		}
 
 		if (isPossessed) {
 				return points -3;
 		}
-        return points;
+
+		if (player.god == god) {
+			return points+1;
+		} else {
+			return points;
+		}
     }
 
-	public void setSpooked(bool isSpooked) {
-		//gameObject.GetComponent
+	public void fear()
+	{
+		previousDirection = GetComponent<Moveable> ().direction;
+		GetComponent<Moveable>().direction = new Vector2(Random.Range(-180, 180) , Random.Range(-180, 180) );
+	}
+
+	public void cancelFear () {
+		GetComponent<Moveable> ().direction = previousDirection;
 	}
 
 	public void moveToPlayer() {

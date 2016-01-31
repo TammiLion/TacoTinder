@@ -15,11 +15,16 @@ public class Border : MonoBehaviour
 			// Destroy the arrow since it's out of bounds.
 			Destroy (other.gameObject);
 		} else if (other.tag == "Mob") {
-			// Turn the mob around for now.
-			Moveable mobMoveable = other.GetComponent<Moveable> ();
-			Vector2 mobDirection = mobMoveable.direction;
-			// Inverse the direction of the mob.
-			mobMoveable.direction = new Vector2 (-1 * mobDirection.x + (Random.value/2f), -1 * mobDirection.y + (Random.value/1.5f));
+			
+			Mob mob = other.GetComponent<Mob> ();
+
+			if (mob.target == null) {
+				// Turn the mob around for now.
+				Moveable mobMoveable = other.GetComponent<Moveable> ();
+				Vector2 mobDirection = mobMoveable.direction;
+				// Inverse the direction of the mob.
+				mobMoveable.direction = new Vector2 (-1 * mobDirection.x + (Random.value/2f), -1 * mobDirection.y + (Random.value/1.5f));
+			}
 		}
 	}
 	

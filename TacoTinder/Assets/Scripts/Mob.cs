@@ -13,7 +13,7 @@ public class Mob : MonoBehaviour {
 	public bool isFattyMcFatFuck = false;
     public bool isSuper = false;
     public bool isPossessed = false;
-    public Player target;
+    public Player target = null;
     int points = 1;
 
 	private Vector2 previousDirection;
@@ -135,16 +135,6 @@ public class Mob : MonoBehaviour {
 			return points;
 		}
     }
-
-	public void fear()
-	{
-		previousDirection = GetComponent<Moveable> ().direction;
-		GetComponent<Moveable>().direction = new Vector2(Random.Range(-180, 180) , Random.Range(-180, 180) );
-	}
-
-	public void cancelFear () {
-		GetComponent<Moveable> ().direction = previousDirection;
-	}
 
 	public void moveToPlayer() {
 		GetComponent<Moveable>().direction = new Vector2(0,0) - new Vector2(transform.position.x, transform.position.y);

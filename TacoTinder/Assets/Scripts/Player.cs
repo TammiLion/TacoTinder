@@ -45,7 +45,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void activateSuper () {
-		this.godClass.activateSuper (this.god, homeBase);
+//		this.godClass.activateSuper (this.god, homeBase);
 	}
 	
 	// Update is called once per frame
@@ -58,6 +58,9 @@ public class Player : MonoBehaviour {
 		if (this.cooldownTimeStamp >= Time.time) {
 			float timeLeft = this.cooldownTimeStamp - Time.time;
 			float percentage = timeLeft / (this.baseFireCooldown * this.weapon.fireCooldownModifier);
+			if (percentage > 0.75) {
+				percentage = 0.75F;
+			}
 			this.arrowSprite.color = new Color(1f,1f,1f,1 - percentage);
 		}
 

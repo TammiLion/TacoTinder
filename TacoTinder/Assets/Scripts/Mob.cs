@@ -4,8 +4,10 @@ using System.Collections;
 public class Mob : MonoBehaviour {	
 	public GameObject auraPrefab;
 	private Aura aura;
+	public Sprite fatty;
 
     public string god;
+	public bool isFattyMcFatFuck = false;
     public bool isSuper = false;
     public bool isPossessed = false;
     public Player target;
@@ -16,16 +18,22 @@ public class Mob : MonoBehaviour {
 		if (target == null) {
 			moveToPlayer();
 		}
+		
+		aura = Instantiate(auraPrefab).GetComponent<Aura> ();
+		aura.gameObject.transform.SetParent (this.transform);
+		aura.transform.localPosition = Vector3.zero;
+		if (isFattyMcFatFuck) {
+			GetComponent<SpriteRenderer>().sprite = fatty;
+			gameObject.transform.localScale= new Vector3(1f, 1f, 1f);
+			GetComponent<Moveable>().speed = 0.1f;
+			GetComponent<Animator>().speed = 0.5f;
+		}
 		if (isSuper) {
 			gameObject.transform.localScale+= new Vector3(0.3f, 0.3f, 0.3f);
 		}
 		if(isPossessed) {
 			gameObject.GetComponent<SpriteRenderer>().color = Color.green;
 		}
-
-		aura = Instantiate(auraPrefab).GetComponent<Aura> ();
-		aura.gameObject.transform.SetParent (this.transform);
-		aura.transform.localPosition = Vector3.zero;
 	}
 
 	public bool getHit (Player player) {
@@ -44,7 +52,11 @@ public class Mob : MonoBehaviour {
 				points++;
 			}
 			GetComponent<Moveable> ().direction = player.getPosition () - new Vector2 (transform.position.x, transform.position.y);
-			GetComponent<Moveable> ().speed += 0.1f;
+			if(isFattyMcFatFuck) {
+				GetComponent<Moveable> ().speed += 0.01f;
+			} else {
+				GetComponent<Moveable> ().speed += 0.1f;
+			}
 			// Let the projectile know we hit a new player.
 			return true;
 		} else {
@@ -55,23 +67,29 @@ public class Mob : MonoBehaviour {
 
     public int GetPoints(Player player)
     {
+		if (isFattyMcFatFuck) {
+			if(isPossessed) {
+				if(isSuper) {
+					return points - 30;
+				} else {
+					return points - 20;
+				}
+			} else if(isSuper) {
+				return points+30;
+			} else {
+				return points+20;
+			}
+		}
+
 		if (isSuper) {
 			if(isPossessed) {
-				if(god == target.god) {
-					return points - 3;
-				} else {
 					return points - 10;
-				}
 			}
 			return points + 10;
 		}
 
 		if (isPossessed) {
-			if(god == target.god) {
-				return points;
-			} else {
 				return points -3;
-			}
 		}
         return points;
     }

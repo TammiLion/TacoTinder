@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public Vector2[] spawnPositions;
 	public UnityEngine.UI.Text instructionsText;
-	public int WIN_POINTS = 200;
+	public static int WIN_POINTS = 200;
 
 	private int abilityButtonsAssigned = 0;
 
@@ -113,10 +113,21 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	public void onWinConditionSucces(Base baseclass) {
+		GetComponent<SpawnManager>().stopSpawning();
+		reset ();
+		GetComponent<ShowWinner> ().showWinScreen (baseclass.player);
+		Invoke ("restartGame", 10f);
+	}
+
+	private void restartGame() {
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
 	//After the tutorial round has passed
 	private void startGameRound() {
 		instructionsText.gameObject.SetActive (true);
-		instructionsText.text = "The game will now start. The first player to reach " + WIN_POINTS + " wins";
+		instructionsText.text = "The game will now start. The first player to reach " + WIN_POINTS + " wins.";
 		//GetComponent<RoundManager> ().time = 5;
 		//GetComponent<RoundManager> ().start = true;
 		Invoke ("startVersus", 4f);

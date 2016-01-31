@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour {
 		foreach (string god in God.GODS) {
 			GameObject baseObject = GameObject.FindGameObjectWithTag(god);
 			baseObject.GetComponent<Base>().points = 0;
+			baseObject.GetComponent<Base>().setPoints();
 		}
 	}
 

@@ -12,10 +12,14 @@ public class Base : MonoBehaviour
 		if (coll.tag == "Mob") {
 			Debug.Log ("Mob was of God: " + coll.GetComponent<Mob> ().god);
 			points += coll.GetComponent<Mob> ().GetPoints (player);
-			scoreText.text = "Score: " + points;
+			setPoints();
 			Destroy (coll.gameObject);
 		} else if (coll.tag == "Projectile") {
 			Destroy (coll.gameObject);
 		}
     }
+
+	public void setPoints() {
+		scoreText.text = "Score: " + points;
+	}
 }

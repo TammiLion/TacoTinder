@@ -10,6 +10,7 @@ public class OpeningScene : MonoBehaviour
         {
             Debug.Log("KeyCode pressed");
             //SceneManager.LoadScene("Sponsors");
+			Application.LoadLevel("Sponsors");
         }
     }
 }

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public Vector2[] spawnPositions;
 	public UnityEngine.UI.Text instructionsText;
-	public static int WIN_POINTS = 10;
+	public static int WIN_POINTS = 200;
 
 	private int abilityButtonsAssigned = 0;
 

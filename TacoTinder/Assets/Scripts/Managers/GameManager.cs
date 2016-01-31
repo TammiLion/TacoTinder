@@ -8,9 +8,19 @@ public class GameManager : MonoBehaviour {
 	private static GameManager mManager = null;
 
 	public ArrayList players;
-	public const int MAX_PLAYERS = 4;
+	public int MAX_PLAYERS = 4;
 	public GameObject playerPrefab;
 	public Vector2[] spawnPositions;
+	public UnityEngine.UI.Text instructionsText;
+
+	public int state = 0;
+
+	private int abilityButtonsAssigned = 0;
+
+	public const int STATE_INSTRUCTIONS = 0;
+	public const int STATE_TUTORIAL = 1;
+	public const int STATE_GAME = 2;
+	public const int STATE_WIN = 3;
 
 	public event EventHandler onWinner;
 	
@@ -37,9 +47,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
-		Debug.Log ("Start GameManager");
 		ControllerManager controllerManager = gameObject.AddComponent<ControllerManager>();
 		controllerManager.onCharacterSelectionScreen ();
+	}
+
+	private void startTutorialRound() {
+		instructionsText.gameObject.SetActive (false);
 		GetComponent<RoundManager> ().start = true;
 		GetComponent<SpawnManager> ().startSpawning (true);
 	}
@@ -53,13 +66,42 @@ public class GameManager : MonoBehaviour {
 		player.GetComponent<Player> ().playerID = players.Count;
 		if (players.Count >= MAX_PLAYERS) {
 			gameObject.GetComponent<ControllerManager>().onAllPlayersHaveControllersAssigned();
+			onAllPlayersAreAssigned();
 		}
 		return player;
 	}
 
-	public void onRoundTimePassed() {
+	private void onAllPlayersAreAssigned() {
+		instructionsText.text = "Now select the button that you would like to use for \"Ability\"";
+	}
+
+	private void onAllPlayersHaveAbilityButtons() {
+		instructionsText.text = "A tutorial round will now start. " +
+			"Shoot the mobs to get them to walk to your base and earn points. " +
+			"Avoid the red mobs, they will make you lose points. " +
+			"Mobs of your afiliation are worth extra points. " +
+			"The bigger the mob the more points it's worth (or the more points it will cost)." +
+				"You can shoot a mob that has already been shot. Each time it switches it will become worth more points.";
+
+		Invoke ("startTutorialRound", 20f);
+	}
+
+	public void onAbilityButtonAvailable(int id, string abilityButton) {
+		foreach (GameObject player in players) {
+			if(player.GetComponent<Controller>().id == id) {
+				player.GetComponent<Controller>().abilityButton = abilityButton;
+				abilityButtonsAssigned++;
+			}
+		}
+		if (abilityButtonsAssigned >= MAX_PLAYERS) {
+			GetComponent<ControllerManager>().onAllPlayersHaveAbilityButtonsAssigned();
+			onAllPlayersHaveAbilityButtons();
+		}
+	}
+	
+	public void onTutorialRoundEnded() {
 		reset ();
-		showObjective ();
+		startGameRound ();
 	}
 
 	private void reset() {
@@ -78,7 +120,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	//After the tutorial round has passed
-	private void showObjective() {
+	private void startGameRound() {
 		//GetComponent<RoundManager> ().time = 5;
 		//GetComponent<RoundManager> ().start = true;
 		Invoke ("startVersus", 4f);

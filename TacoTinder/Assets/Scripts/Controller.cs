@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour {
 		//checkAnyButtonPressedController (id);
 		checkFireButton ();
 		checkAxes ();
+		checkAbilityButton ();
 	}
 	
 	private void checkAxes() {

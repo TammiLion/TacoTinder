@@ -19,7 +19,6 @@ public class RoundManager : MonoBehaviour {
 		}
 	}
 
-
 	public void onTimerEndedSoundEvent() {
 		EventHandler handler = onTimerEndedSound;
 		if (handler != null) {
@@ -54,7 +53,7 @@ public class RoundManager : MonoBehaviour {
 			secondSoundActivated = false;
 			CancelInvoke();
 			onTimerEndedSoundEvent();
-			GetComponent<GameManager>().onRoundTimePassed();
+			GetComponent<GameManager>().onTutorialRoundEnded();
 			start = false;
 			timerText.gameObject.SetActive(false);
 		}

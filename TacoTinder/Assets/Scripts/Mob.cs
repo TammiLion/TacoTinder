@@ -52,7 +52,10 @@ public class Mob : MonoBehaviour {
 			} else {
 				points++;
 			}
-			GetComponent<Moveable> ().direction = player.getPosition () - new Vector2 (transform.position.x, transform.position.y);
+
+			Base baseObject = GameObject.FindGameObjectWithTag(player.god).GetComponent<Base> ();
+			GetComponent<Moveable> ().direction = baseObject.getPosition () - new Vector2 (transform.position.x, transform.position.y);
+
 			if(isFattyMcFatFuck) {
 				GetComponent<Moveable> ().speed += 0.01f;
 			} else {

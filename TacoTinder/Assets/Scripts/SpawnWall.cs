@@ -13,12 +13,12 @@ public class SpawnWall : MonoBehaviour
     void buildWall()
     {
         //Wall left
-        GameObject wallLeft = Instantiate(wallPrefab, new Vector3(-2.64f, -0.06f, 0), Quaternion.Euler(0, 0, -0.66f)) as GameObject;
+        GameObject wallLeft = Instantiate(wallPrefab, new Vector3(-2.21f, -0.04f, 0), Quaternion.Euler(0, 0, 353.66f)) as GameObject;
         //Wall right
-        GameObject wallRight = Instantiate(wallPrefab, new Vector3(2.81f, -0.21f, 0), Quaternion.Euler(0, 0, 170.7f)) as GameObject;
+        GameObject wallRight = Instantiate(wallPrefab, new Vector3(2.45f, -0.11f, 0), Quaternion.Euler(0, 0, -181.4f)) as GameObject;
         //Wall bottom
-        GameObject wallBottom = Instantiate(wallPrefab, new Vector3(0.13f, -2.71f, 0), Quaternion.Euler(0, 0, 87.7f)) as GameObject;
-        //wallBottom.transform.localScale += new Vector3(0.6f, 0.4f, 0.6f);
+        GameObject wallBottom = Instantiate(wallPrefab, new Vector3(0.14f, -2.2f, 0), Quaternion.Euler(0, 0, -270.3f)) as GameObject;
+        
     }
 
 

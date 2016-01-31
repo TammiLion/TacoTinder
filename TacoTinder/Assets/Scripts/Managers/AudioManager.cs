@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour {
 	public AudioClip secondSound;
 	public AudioClip timerSound;
 	public AudioClip winnerSound;
+	public AudioClip fattySound;
 
 	public AudioClip[] followerEnteredSounds;
 	
@@ -18,6 +19,9 @@ public class AudioManager : MonoBehaviour {
 		GameObject manager = GameObject.Find ("Manager");
 		GameManager gameManagerScript = (GameManager) manager.GetComponent<GameManager> ();
 		gameManagerScript.onWinner += this.handleOnWinnerEvent;
+
+		SpawnManager spawnScript = manager.GetComponent<SpawnManager> ();
+		spawnScript.onFatty += this.handleOnFattyEvent;
 
 		RoundManager roundManagerScript = (RoundManager) manager.GetComponent<RoundManager> ();
 		roundManagerScript.onSecondSound += this.handleOnSecondSoundEvent;
@@ -47,5 +51,9 @@ public class AudioManager : MonoBehaviour {
 
 	public void handleOnFollowerEnteredBaseEvent(object sender, System.EventArgs args) {
 		audio.PlayOneShot(followerEnteredSounds[Random.Range(0, followerEnteredSounds.Length)], 0.5F);
+	}
+
+	public void handleOnFattyEvent(object sender, System.EventArgs args) {
+		audio.PlayOneShot (fattySound, 1F);
 	}
 }

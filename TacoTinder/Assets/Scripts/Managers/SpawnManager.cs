@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -21,6 +22,15 @@ public class SpawnManager : MonoBehaviour
 
 	private bool isTimedRound = false;
 
+	public event EventHandler onFatty;
+
+	public void onFattyEvent() {
+		EventHandler handler = onFatty;
+		if (handler != null) {
+			handler(this, System.EventArgs.Empty);
+		}
+	}
+
 	public void startSpawning(bool timedRound) {
 		isTimedRound = timedRound;
 		InvokeRepeating("SpawnMobs", firstSpawnTime, cooldownTimer); 
@@ -32,13 +42,13 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnMobs()
     {
-		bool spawnFatty = (!isTimedRound && (fattiesSpawned < maxFatties) && Random.value < fattyRate);
+		bool spawnFatty = (!isTimedRound && (fattiesSpawned < maxFatties) && UnityEngine.Random.value < fattyRate);
 
 		if (spawnFatty) {
 			spawnLocation = fattySpawnPosition.transform.position;
 		} else {
-			//get a random spawn position
-			spawnLocation = spawnPositions [Random.Range (0, spawnPositions.Length)].transform.position;
+			//get a UnityEngine.Random spawn position
+			spawnLocation = spawnPositions [UnityEngine.Random.Range (0, spawnPositions.Length)].transform.position;
 		}
 
         //set direction towards the center and normalize vector
@@ -54,10 +64,11 @@ public class SpawnManager : MonoBehaviour
 		//newMob.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         //assign mob attributes
-		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
-		newMob.isSuper = (Random.value < superRate);
-        newMob.isPossessed = (Random.value < possedRate);
+		newMob.god = God.GODS[UnityEngine.Random.Range(0, God.GODS.Length)];
+		newMob.isSuper = (UnityEngine.Random.value < superRate);
+        newMob.isPossessed = (UnityEngine.Random.value < possedRate);
 		if (spawnFatty) {
+			onFattyEvent ();
 			newMob.isFattyMcFatFuck = true;
 			fattiesSpawned += 1;
 		}

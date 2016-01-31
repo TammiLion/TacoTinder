@@ -51,7 +51,6 @@ public class Player : MonoBehaviour {
 			float timeLeft = this.cooldownTimeStamp - Time.time;
 			float percentage = timeLeft / (this.baseFireCooldown * this.weapon.fireCooldownModifier);
 			this.arrowSprite.color = new Color(1f,1f,1f,1 - percentage);
-			Debug.Log (percentage);
 		}
 
 	}

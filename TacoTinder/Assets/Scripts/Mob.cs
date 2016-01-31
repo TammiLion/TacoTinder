@@ -9,7 +9,7 @@ public class Mob : MonoBehaviour {
 	public Sprite possessed;
 	public Sprite[] affiliations;
 
-    public string god;
+    public string god = "neutral";
 	public bool isFattyMcFatFuck = false;
     public bool isSuper = false;
     public bool isPossessed = false;

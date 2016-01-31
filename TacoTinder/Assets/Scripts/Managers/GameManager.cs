@@ -12,15 +12,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	public Vector2[] spawnPositions;
 	public UnityEngine.UI.Text instructionsText;
-
-	public int state = 0;
+	public int WIN_POINTS = 200;
 
 	private int abilityButtonsAssigned = 0;
-
-	public const int STATE_INSTRUCTIONS = 0;
-	public const int STATE_TUTORIAL = 1;
-	public const int STATE_GAME = 2;
-	public const int STATE_WIN = 3;
 
 	public event EventHandler onWinner;
 	
@@ -121,12 +115,15 @@ public class GameManager : MonoBehaviour {
 
 	//After the tutorial round has passed
 	private void startGameRound() {
+		instructionsText.gameObject.SetActive (true);
+		instructionsText.text = "The game will now start. The first player to reach " + WIN_POINTS + " wins";
 		//GetComponent<RoundManager> ().time = 5;
 		//GetComponent<RoundManager> ().start = true;
 		Invoke ("startVersus", 4f);
 	}
 
 	private void startVersus() {
+		instructionsText.gameObject.SetActive (false);
 		// False since the round is not timed.
 		GetComponent<SpawnManager> ().startSpawning (false);
 	}

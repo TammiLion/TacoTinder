@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class OpeningScene : MonoBehaviour {
 
@@ -9,14 +10,8 @@ public class OpeningScene : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(ExecuteAfterTime(waitTime));
+        if (Input.anyKey)
+            SceneManager.LoadScene("Sponsors");
     }
 
-    IEnumerator ExecuteAfterTime(int waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-
-        //SceneManager.LoadScene("Sponsors");
-
-    }
 }

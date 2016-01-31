@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,6 +11,15 @@ public class GameManager : MonoBehaviour {
 	public const int MAX_PLAYERS = 4;
 	public GameObject playerPrefab;
 	public Vector2[] spawnPositions;
+
+	public event EventHandler onWinner;
+	
+	public void onWinnerEvent() {
+		EventHandler handler = onWinner;
+		if (handler != null) {
+			handler(this, System.EventArgs.Empty);
+		}
+	}
 
 	protected GameManager() {
 		players = new ArrayList();
@@ -30,7 +40,7 @@ public class GameManager : MonoBehaviour {
 		ControllerManager controllerManager = gameObject.AddComponent<ControllerManager>();
 		controllerManager.onCharacterSelectionScreen ();
 		GetComponent<RoundManager> ().start = true;
-		GetComponent<SpawnManager> ().startSpawning ();
+		GetComponent<SpawnManager> ().startSpawning (true);
 	}
 
 	public GameObject onControllerAvailable() {
@@ -65,13 +75,14 @@ public class GameManager : MonoBehaviour {
 
 	//After the tutorial round has passed
 	private void showObjective() {
-		GetComponent<RoundManager> ().time = 5;
-		GetComponent<RoundManager> ().start = true;
-		Invoke ("startVersus", 5f);
+		//GetComponent<RoundManager> ().time = 5;
+		//GetComponent<RoundManager> ().start = true;
+		Invoke ("startVersus", 4f);
 	}
 
 	private void startVersus() {
-		GetComponent<SpawnManager> ().startSpawning ();
+		// False since the round is not timed.
+		GetComponent<SpawnManager> ().startSpawning (false);
 	}
 	
 }

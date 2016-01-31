@@ -12,7 +12,7 @@ public class Mob : MonoBehaviour {
     public bool isPossessed = false;
     public Player target;
     int points = 1;
-	
+
 	// Use this for initialization
 	void Start () {
 		if (target == null) {

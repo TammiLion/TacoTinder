@@ -11,8 +11,13 @@ public class SpawnManager : MonoBehaviour
  
     Vector3 spawnLocation;
     Vector2 dir;
+	public int maxFatties = 1;
+	private int fattiesSpawned = 0;
 
-	public void startSpawning() {
+	private bool isTimedRound = false;
+
+	public void startSpawning(bool timedRound) {
+		isTimedRound = timedRound;
 		InvokeRepeating("SpawnMobs", firstSpawnTime, cooldownTimer); 
 	}
 	
@@ -41,6 +46,10 @@ public class SpawnManager : MonoBehaviour
 		newMob.god = God.GODS[Random.Range(0, God.GODS.Length)];
         newMob.isSuper = (Random.value < 0.3f);
         newMob.isPossessed = (Random.value < 0.2f);
-		newMob.isFattyMcFatFuck = (Random.value<0.05f);
+		if (!isTimedRound && (fattiesSpawned < maxFatties) && Random.value < 0.01f) {
+			newMob.isFattyMcFatFuck = true;
+			fattiesSpawned += 1;
+		}
+
     }
 }

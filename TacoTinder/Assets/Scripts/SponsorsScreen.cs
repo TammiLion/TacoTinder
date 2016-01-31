@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class SponsorsScreen : MonoBehaviour {
 
@@ -15,7 +15,7 @@ public class SponsorsScreen : MonoBehaviour {
     {
         yield return new WaitForSeconds(waitTime);
 
-        //SceneManager.LoadScene("CharacterSelectionMenu");
+        SceneManager.LoadScene("CharacterSelectionMenu");
 
     }
 }

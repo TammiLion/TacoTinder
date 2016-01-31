@@ -24,6 +24,7 @@ public class Base : MonoBehaviour
 			points += coll.GetComponent<Mob> ().GetPoints (player);
 			setPoints();
 			Destroy (coll.gameObject);
+			checkWinCondition();
 		} else if (coll.tag == "Projectile") {
 			Destroy (coll.gameObject);
 		}
@@ -31,6 +32,12 @@ public class Base : MonoBehaviour
 
 	public void setPoints() {
 		scoreText.text = "Score: " + points;
+	}
+
+	private void checkWinCondition() {
+		if (points >= GameManager.WIN_POINTS) {
+			GameObject.Find ("Manager").GetComponent<GameManager>().onWinConditionSucces(this);
+		}
 	}
 
 	public Vector2 getPosition() {

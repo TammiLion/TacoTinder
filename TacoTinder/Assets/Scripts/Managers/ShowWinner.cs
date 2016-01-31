@@ -7,22 +7,19 @@ public class ShowWinner : MonoBehaviour {
     public Sprite winPyramid;
     public Sprite winInca;
     public Sprite winJapan;
-
-    Sprite winIMG;
-
-    // Use this for initialization
-    void Start () {
-	    
-	}
-
-    void showWinScreen (Player player)
+	public GameObject winScreen;
+	
+    public void showWinScreen (Player player)
     {
-        if (player.name == "aquaman") winIMG = winAquaman;
-        if (player.name == "pyramid") winIMG = winPyramid;
-        if (player.name == "inca") winIMG = winInca;
-        if (player.name == "japan") winIMG = winJapan;
+		winScreen.SetActive (true);
+		if (player.god == "aquaman") winScreen.GetComponent<SpriteRenderer> ().sprite = winAquaman;
 
-        Instantiate(winIMG, Vector3.zero, Quaternion.identity);
+		if (player.god == "pyramid") 		winScreen.GetComponent<SpriteRenderer> ().sprite = winPyramid;
+
+		if (player.god == "inca") 		winScreen.GetComponent<SpriteRenderer> ().sprite = winInca;
+
+		if (player.god == "japan") 		winScreen.GetComponent<SpriteRenderer> ().sprite = winJapan;
+        //Instantiate(winIMG, Vector3.zero, Quaternion.identity);
     }
 	
 	

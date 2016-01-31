@@ -3,13 +3,22 @@ using System.Collections;
 
 public class SpawnWall : MonoBehaviour
 {
-    public GameObject wall;
+    public GameObject wallPrefab;
+
+    void Update()
+    {
+        if (Input.anyKeyDown) buildWall(); 
+    }
 
     void buildWall()
     {
-        GameObject newWall1 = Instantiate(wall, new Vector3(-2.3f, 0, 0), Quaternion.Euler(0, 0, 90)) as GameObject;
-        GameObject newWall2 = Instantiate(wall, new Vector3(0, -2.3f, 0), Quaternion.identity) as GameObject;
-        GameObject newWall3 = Instantiate(wall, new Vector3(2.3f, 0, 0), Quaternion.Euler(0, 0, 90)) as GameObject;
+        //Wall left
+        GameObject wallLeft = Instantiate(wallPrefab, new Vector3(-2.21f, -0.04f, 0), Quaternion.Euler(0, 0, 353.66f)) as GameObject;
+        //Wall right
+        GameObject wallRight = Instantiate(wallPrefab, new Vector3(2.45f, -0.11f, 0), Quaternion.Euler(0, 0, -181.4f)) as GameObject;
+        //Wall bottom
+        GameObject wallBottom = Instantiate(wallPrefab, new Vector3(0.14f, -2.2f, 0), Quaternion.Euler(0, 0, -270.3f)) as GameObject;
+        
     }
 
 

@@ -40,27 +40,58 @@ public class ControllerManager : MonoBehaviour {
 			//Debug.Log("numControllers: " + numControllers);
 			assignControllers();
 		} else if (state == STATE_SELECTING) {
+			assignAbilityButtons();
 		}
+	}
+
+	private void assignAbilityButtons() {
+		ControllerData controllerData = checkButtonPressedController ();
+		if (controllerData == null) {
+			return;
+		}
+
+		if (isControllerExtisting (controllerData.id) && isAbilityButtonNotFireButton (controllerData.id, controllerData.selectedButton)) {
+			gameObject.GetComponent<GameManager>().onAbilityButtonAvailable (controllerData.id, controllerData.selectedButton);
+			Debug.Log ("Controller " + controllerData.id + " has been assigned an Ability button.");
+		}
+	}
+
+	private bool isControllerExtisting(int id) {
+		foreach(ControllerData controller in controllers) {
+			if(id == controller.id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private bool isAbilityButtonNotFireButton(int id, string selectedButton) {
+		foreach(ControllerData controller in controllers) {
+			if(id == controller.id &! (controller.selectedButton == selectedButton)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void assignControllers() {
-		ControllerData controller = checkFireButtonPressedController ();
-		if (controller == null) {
+		ControllerData controllerData = checkButtonPressedController ();
+		if (controllerData == null) {
 			return;
 		}
 		for(int i = 0; i<controllers.Count; i++) {
-				if(((ControllerData)controllers[i]).id == controller.id) {
+				if(((ControllerData)controllers[i]).id == controllerData.id) {
 					return;
 				}
 			}
-		controllers.Add (controller);
+		controllers.Add (controllerData);
 		GameObject player = gameObject.GetComponent<GameManager>().onControllerAvailable ();
-		player.GetComponent<Controller> ().id = controller.id;
-		player.GetComponent<Controller> ().fireButton = controller.fireButton;
-		Debug.Log ("Player " + player.GetComponent<Player>().playerID + " has been assigned controller " + controller.id);
+		player.GetComponent<Controller> ().id = controllerData.id;
+		player.GetComponent<Controller> ().fireButton = controllerData.selectedButton;
+		Debug.Log ("Player " + player.GetComponent<Player>().playerID + " has been assigned controller " + controllerData.id);
 	}
 
-	private ControllerData checkFireButtonPressedController() {
+	private ControllerData checkButtonPressedController() {
 		for (int i = 0; i<20; i++) {
 			for (int j = 1; j<numControllers+1; j++) {
 				if (Input.GetKeyDown ("joystick " + j + " button " + i)) {
@@ -73,11 +104,11 @@ public class ControllerManager : MonoBehaviour {
 	}
 
 	public void onAllPlayersHaveControllersAssigned() {
-		if (state == STATE_ASSIGNING && Application.loadedLevelName.Contains(CHARACTER_SELECTION_SCENE_NAME)) {
-			state = STATE_SELECTING;
-		} else {
-			state = STATE_WAITING;
-		}
+		state = STATE_SELECTING;
+	}
+
+	public void onAllPlayersHaveAbilityButtonsAssigned() {
+		state = STATE_WAITING;
 	}
 
 	public void onCharacterSelectionScreen() {
@@ -88,11 +119,11 @@ public class ControllerManager : MonoBehaviour {
 	private class ControllerData {
 
 		public int id;
-		public string fireButton;
+		public string selectedButton;
 
 		public ControllerData(int id, string firebutton) {
 			this.id = id;
-			this.fireButton = firebutton;
+			this.selectedButton = firebutton;
 		}
 
 	}

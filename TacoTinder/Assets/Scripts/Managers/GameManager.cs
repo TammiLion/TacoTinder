@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 		ControllerManager controllerManager = gameObject.AddComponent<ControllerManager>();
 		controllerManager.onCharacterSelectionScreen ();
 		GetComponent<RoundManager> ().start = true;
-		GetComponent<SpawnManager> ().startSpawning ();
+		GetComponent<SpawnManager> ().startSpawning (true);
 	}
 
 	public GameObject onControllerAvailable() {
@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void startVersus() {
-		GetComponent<SpawnManager> ().startSpawning ();
+		// False since the round is not timed.
+		GetComponent<SpawnManager> ().startSpawning (false);
 	}
 	
 }
